@@ -2,15 +2,19 @@ import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, SafeAreaView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useTranslation } from 'react-i18next';
+import { useNavigation } from '@react-navigation/native';
 import { Colors, Typography, Spacing, Radius, Shadow } from '../../theme';
 import { useApp } from '../../context/AppContext';
 import { SCHEDULE_DATA, COURSES, ACHIEVEMENTS } from '../../data/mockData';
 import Card from '../../components/Card';
 import ProgressBar from '../../components/ProgressBar';
+import { LAST_COMPLETED_LESSON_ID } from '../../data/pythonCurriculum';
 
 export default function StudentDashboard() {
   const { t } = useTranslation();
   const { user } = useApp();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const navigation = useNavigation<any>();
 
   const hour = new Date().getHours();
   const greeting = hour < 12 ? t('good_morning') : hour < 18 ? t('good_afternoon') : t('good_evening');
@@ -108,6 +112,23 @@ export default function StudentDashboard() {
             </ScrollView>
           </View>
 
+          {/* Avatar Review — Powtórka z Piko */}
+          <TouchableOpacity
+            activeOpacity={0.88}
+            onPress={() => navigation.navigate('AvatarReview', { lessonId: LAST_COMPLETED_LESSON_ID })}
+          >
+            <LinearGradient colors={['#4C1D95', '#6C3CE1']} style={styles.pikoCard}>
+              <View style={styles.pikoLeft}>
+                <Text style={styles.pikoEmoji}>🤖</Text>
+                <View>
+                  <Text style={styles.pikoTitle}>Powtórka z Piko</Text>
+                  <Text style={styles.pikoSubtitle}>Zmienne i typy danych 🐍</Text>
+                </View>
+              </View>
+              <Text style={styles.pikoArrow}>›</Text>
+            </LinearGradient>
+          </TouchableOpacity>
+
           {/* Achievements */}
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>🏆 {t('achievements')}</Text>
@@ -185,4 +206,23 @@ const styles = StyleSheet.create({
   lockedIcon: { opacity: 0.3 },
   achievementTitle: { color: Colors.textSecondary, fontSize: 9, textAlign: 'center', fontWeight: '600' },
   lockedText: { color: Colors.textMuted },
+
+  // Piko avatar review card
+  pikoCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    borderRadius: Radius.lg,
+    padding: Spacing.md,
+    ...Shadow.card,
+  },
+  pikoLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: Spacing.md,
+  },
+  pikoEmoji: { fontSize: 38 },
+  pikoTitle: { ...Typography.bodyBold, color: Colors.textLight },
+  pikoSubtitle: { ...Typography.small, color: 'rgba(255,255,255,0.75)', marginTop: 2 },
+  pikoArrow: { color: 'rgba(255,255,255,0.8)', fontSize: 28, fontWeight: '300' },
 });
