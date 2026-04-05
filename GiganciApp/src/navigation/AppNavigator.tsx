@@ -17,6 +17,7 @@ import ScheduleScreen from '../screens/student/ScheduleScreen';
 import CoursesScreen from '../screens/student/CoursesScreen';
 import MessagesScreen from '../screens/student/MessagesScreen';
 import ProfileScreen from '../screens/student/ProfileScreen';
+import AvatarReviewScreen from '../screens/student/AvatarReviewScreen';
 
 // Parent screens
 import ParentDashboard from '../screens/parent/ParentDashboard';
@@ -26,6 +27,7 @@ import PaymentsScreen from '../screens/parent/PaymentsScreen';
 import TeacherDashboard from '../screens/teacher/TeacherDashboard';
 
 const Stack = createNativeStackNavigator();
+const StudentStack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 function TabIcon({ emoji, focused }: { emoji: string; focused: boolean }) {
@@ -33,6 +35,15 @@ function TabIcon({ emoji, focused }: { emoji: string; focused: boolean }) {
     <View style={{ alignItems: 'center', justifyContent: 'center' }}>
       <Text style={{ fontSize: focused ? 24 : 20, opacity: focused ? 1 : 0.6 }}>{emoji}</Text>
     </View>
+  );
+}
+
+function StudentApp() {
+  return (
+    <StudentStack.Navigator screenOptions={{ headerShown: false }}>
+      <StudentStack.Screen name="StudentTabs" component={StudentTabs} />
+      <StudentStack.Screen name="AvatarReview" component={AvatarReviewScreen} />
+    </StudentStack.Navigator>
   );
 }
 
@@ -163,7 +174,7 @@ export default function AppNavigator() {
           <Stack.Screen name="Auth" component={AuthFlow} />
         ) : (
           <>
-            {user?.role === 'student' && <Stack.Screen name="StudentApp" component={StudentTabs} />}
+            {user?.role === 'student' && <Stack.Screen name="StudentApp" component={StudentApp} />}
             {user?.role === 'parent' && <Stack.Screen name="ParentApp" component={ParentTabs} />}
             {user?.role === 'teacher' && <Stack.Screen name="TeacherApp" component={TeacherTabs} />}
           </>

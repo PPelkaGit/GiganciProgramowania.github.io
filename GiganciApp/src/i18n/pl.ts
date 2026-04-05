@@ -128,6 +128,20 @@ export default {
   parent_messages: 'Wiadomości',
   from_teacher: 'od nauczyciela',
 
+  // Avatar Review — Piko
+  avatar_review: 'Powtórka z Piko',
+  connecting: 'Łączę z Piko...',
+  listening: 'Słucham...',
+  thinking: 'Piko myśli...',
+  talking: 'Piko mówi...',
+  idle: 'Gotowy',
+  disconnect: 'Rozłącz',
+  connect_piko: 'Połącz z Piko',
+  lesson_variables: 'Zmienne i typy danych',
+  lesson_conditionals: 'Warunki if/else',
+  lesson_loops: 'Pętle for i while',
+  api_key_missing: 'Brak klucza OPENAI_API_KEY w konfiguracji',
+
   // Teacher
   my_students: 'Moi uczniowie',
   class_today: 'Dzisiejsze zajęcia',

@@ -12,7 +12,13 @@
       "backgroundColor": "#6C3CE1"
     },
     "plugins": [
-      "react-native-reanimated"
+      "react-native-reanimated",
+      [
+        "expo-av",
+        {
+          "microphonePermission": "Aplikacja potrzebuje dostępu do mikrofonu, aby Piko mógł Cię słyszeć podczas powtórki."
+        }
+      ]
     ],
     "ios": {
       "supportsTablet": true
@@ -28,6 +34,9 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "openaiApiKey": ""
     }
   }
 }
